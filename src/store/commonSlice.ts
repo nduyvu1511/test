@@ -1,11 +1,11 @@
 import { PayloadType } from '@/types'
 import { createSlice } from '@reduxjs/toolkit'
 
-interface CommonSliceParams {
+interface CommonSlice {
   backdropVisible: boolean
 }
 
-const initialState: CommonSliceParams = {
+const initialState: CommonSlice = {
   backdropVisible: false,
 }
 

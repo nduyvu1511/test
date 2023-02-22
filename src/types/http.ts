@@ -1,29 +1,32 @@
+import { AxiosPromise } from 'axios'
 import type { KeyedMutator } from 'swr'
 
 export type HTTPResponse<T> = {
-  count?: number
-  status: boolean
-  code?: number
-  message?: string
-  validate_token?: boolean
-  data: T
+  success: boolean
+  status: number
+  message: string
+  response: T
+  exception?: any
+  arguments?: any
+  context?: any
 }
 
 export interface HTTPConfig {
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
   showBackdrop?: boolean
   errorMsg?: string
   successMsg?: string
   showErrorMsg?: boolean
   showSuccessMsg?: boolean
-  method?: 'GET' | 'POST'
-  shouldsetLoading?: boolean
+  setLoadingState?: boolean
+  disabledLoading?: boolean
 }
 
-export interface AsyncHandler<Response> {
-  fetcher: Promise<HTTPResponse<Response>>
-  onSuccess?: (params: Response) => void
-  onError?: (data: any) => void
+export interface AsyncHandler<T> {
+  fetcher: AxiosPromise<HTTPResponse<T>>
   config?: HTTPConfig
+  onSuccess?: (params: T) => void
+  onError?: (data: any) => void
 }
 
 export interface AsyncHandlerParams<Params, Response> {
@@ -35,31 +38,42 @@ export interface AsyncHandlerParams<Params, Response> {
 
 export type AsyncHandlerNoFetcher<T> = Omit<AsyncHandler<T>, 'fetcher'>
 
-export type QueryListFunction<T, V> = QueryListFetchMoreFunction<T> & {
+export type QueryListFunction<T, V> = QueryListFetchMoreFunction<T, V> & {
   params: V
 }
 
-export type QueryListFetchMoreFunction<T> = {
-  onError?: Function
-  onSuccess?: (_: T[]) => void
+export type QueryListFetchMoreFunction<T, V> = {
+  fetcher?: (params?: V) => AxiosPromise<HTTPResponse<ListRes<T>>>
+}
+
+export type QueryListPaginateFunction<T, V> = QueryListFetchMoreFunction<T, V> & {
+  params: { page: number }
 }
 
 export interface UseQueryListRes<T, V extends QueryList> {
-  isValidating: boolean
+  isValidating: boolean // for both loading and filter
+  isLoading: boolean // first loading
   hasMore: boolean
-  isFetchingMore: boolean
+  isLoadingMore: boolean
   offset: number
   data: T[] | undefined
   error: any
-  isFirstLoading: boolean
-  params: V | undefined
+  total: number
+  params: V
+  limit: number
   mutate: KeyedMutator<any>
-  fetchMore: (_?: QueryListFetchMoreFunction<T>) => Promise<void>
+  getMore: (_?: QueryListFetchMoreFunction<T, V>) => Promise<void>
+  paginate: (_: QueryListPaginateFunction<T, V>) => Promise<void>
   filter: (_: QueryListFunction<T, V>) => Promise<void>
   refresh: () => void
 }
 
 export interface QueryList {
-  limit?: number
-  offset?: number
+  limit?: number | undefined
+  offset?: number | undefined
+}
+
+export interface ListRes<T> {
+  total: number
+  products: T[]
 }

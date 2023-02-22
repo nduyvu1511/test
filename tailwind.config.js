@@ -15,6 +15,10 @@ module.exports = {
       '6xl': '4rem',
     },
     extend: {
+      gridTemplateColumns: {
+        'left-200': '200px 1fr',
+        'right-200': '1fr 200px',
+      },
       colors: {
         gray: {
           100: '#f7fafc',
@@ -94,6 +98,7 @@ module.exports = {
       warning: '#FF9500',
       active: '#1F6CB0',
       success: '#10B981',
+      secondary: '#c3c3c3',
       'green-20': '#A7F2C1',
       black: '#000000',
       'bg-blue': '#EEEBFF',

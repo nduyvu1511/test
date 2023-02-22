@@ -5,10 +5,12 @@ export const useModal = () => {
 
   const closeModal = () => setVisible(false)
   const openModal = () => setVisible(true)
+  const toggle = () => setVisible(!visible)
 
   return {
     visible,
     closeModal,
     openModal,
+    toggle,
   }
 }

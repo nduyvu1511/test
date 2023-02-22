@@ -1,74 +1,89 @@
+import classNames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ReactNode } from 'react'
 import { IoCloseOutline } from 'react-icons/io5'
+import { twMerge } from 'tailwind-merge'
 import ReactPortal from './portal'
+import { useModalTransition } from './useModalTransition'
+
+export type ModalTransitionType =
+  | 'fade'
+  | 'slideDown'
+  | 'slideUp'
+  | 'slideFromLeft'
+  | 'slideFromRight'
 
 export type ModalProps = {
   children?: ReactNode
-  title?: string
   visible: boolean
-  onClose?: () => void
   className?: string
-  contentClassName?: string
-  // allowOverlayclose?: boolean
+  modalClassName?: string
+  allowOverlayclose?: boolean
+  animationType?: ModalTransitionType
+  header?: JSX.Element
+  headerClassName?: string
+  headerTitle?: string
+  overlayclassName?: string
+  footer?: JSX.Element
+  onClose?: () => void
 }
 
 export const Modal = ({
   children,
-  onClose,
-  title,
+  headerTitle,
   visible,
-  // allowOverlayclose = true,
-  className = '',
-  contentClassName = '',
+  allowOverlayclose = true,
+  className,
+  modalClassName,
+  animationType = 'slideDown',
+  overlayclassName,
+  header,
+  headerClassName,
+  footer,
+  onClose,
 }: ModalProps) => {
-  const overlayVariants = {
-    visible: {
-      opacity: 1,
-      transition: {
-        when: 'beforeChildren',
-        duration: 0.3,
-        delayChildren: 0.4,
-      },
-    },
-    hidden: {
-      opacity: 0,
-      transition: {
-        when: 'afterChildren',
-        duration: 0.3,
-        delay: 0.4,
-      },
-    },
-  }
+  const { fadeInVariants, variants } = useModalTransition(animationType)
 
   return (
     <ReactPortal wrapperId="react-portal-modal-container">
       <AnimatePresence>
         {visible && (
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            variants={overlayVariants}
-            className={`fixed inset-0 bg-black50 flex-center ${className}`}
-          >
+          <div className={twMerge(classNames('fixed inset-0 flex-center items-end', className))}>
             <motion.div
-              className={`max-w-[500px] max-h-[500px] p-[24px] overflow-y-auto rounded-[5px] w-[80%] bg-white ${contentClassName}`}
-              animate={{ y: 0 }}
-              exit={{ y: '100vh' }}
-              initial={{ y: '100vh' }}
-              transition={{ duration: 0.5 }}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={variants}
+              className={twMerge(
+                classNames('z-10 rounded-[5px] bg-white flex flex-col w-[400px] h-[400px]', modalClassName)
+              )}
             >
-              <div className="flex items-center mb-[16px]">
-                <p className="text-lg line-clamp-1">{title}</p>
-                <button className="p-[4px]" onClick={onClose}>
-                  <IoCloseOutline className="text-lg" />
-                </button>
-              </div>
+              {header || (
+                <div
+                  className={twMerge(classNames('h-[56px] flex items-center p-4', headerClassName))}
+                >
+                  <p className="text-lg line-clamp-1 flex-1">{headerTitle}</p>
+                  <button className="p-[4px]" onClick={onClose}>
+                    <IoCloseOutline className="text-lg" />
+                  </button>
+                </div>
+              )}
 
-              {children}
+              <div className="flex-1 overflow-y-auto">{children}</div>
+
+              {footer || null}
             </motion.div>
-          </motion.div>
+
+            {/* Overlay */}
+            <motion.div
+              className={twMerge(classNames('bg-black50 absolute inset-0', overlayclassName))}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={fadeInVariants}
+              onClick={allowOverlayclose ? onClose : undefined}
+            />
+          </div>
         )}
       </AnimatePresence>
     </ReactPortal>

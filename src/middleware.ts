@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
-export function middleware(req: NextRequest) {
+export function middleware(req: NextRequest): any {
   let token = req.cookies?.get('access_token')
 
   if (!token) {

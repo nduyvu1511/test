@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage'
 import type { ThunkDispatch } from 'redux-thunk'
 import thunk from 'redux-thunk'
 import commonSlice from './commonSlice'
+import userSlice from './userSlice'
 
 const persistConfig = {
   key: 'root',
@@ -14,7 +15,8 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-  common: commonSlice
+  common: commonSlice,
+  user: userSlice
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer) 

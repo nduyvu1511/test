@@ -1,16 +1,14 @@
-import type { HTTPResponse, LoginPasswordForm } from '@/types'
-
-import axiosClient from './axiosClient'
+import type { HTTPResponse, LoginRes, UpdateUserInfo } from '@/types'
+import { AxiosPromise } from 'axios'
+import { axiosInstance } from './axiosInstance'
 
 const userAPI = {
-  login: (data: LoginPasswordForm): Promise<HTTPResponse<any>> => {
-    return axiosClient.post('/api/login', {
-      params: data,
-    })
+  getUserInfo: (): AxiosPromise<HTTPResponse<LoginRes>> => {
+    return axiosInstance.get('/api/v1/me')
   },
 
-  logout: (): Promise<HTTPResponse<null>> => {
-    return axiosClient.post('/api/logout', {})
+  updateUserInfo: (params: UpdateUserInfo): AxiosPromise<HTTPResponse<LoginRes>> => {
+    return axiosInstance.post('/api/v1/me', params)
   },
 }
 

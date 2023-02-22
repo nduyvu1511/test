@@ -1,4 +1,7 @@
-export interface LoginPasswordForm {
-  phone: string
-  password: string
+export interface UpdateUserInfo {
+  name?: string
+  avatar?: string
+  cover?: string
+  tz?: string
+  lang?: string
 }

@@ -1,4 +1,6 @@
+import classNames from 'classnames'
 import React, { ReactNode } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { Spinner } from '../spinner'
 
 export interface ButtonProps
@@ -9,25 +11,33 @@ export interface ButtonProps
   loading?: boolean
   title?: string
   icon?: ReactNode
-  colorType?: 'primary' | 'warning' | 'error' | 'info' | 'secondary' | 'success' | 'danger'
+  variant?: 'primary' | 'secondary'
   btnType?: 'outline' | 'contained'
+  textClassName?: string
 }
 
 export const Button = ({
   title,
   icon,
   style,
-  colorType = 'primary',
   loading = false,
   btnType = 'contained',
+  className,
+  textClassName,
   ...attributes
 }: ButtonProps) => {
   return (
     <button
-      className={`btn ${attributes?.disabled ? 'pointer-events-none' : ''}`}
       disabled={attributes?.disabled || loading}
       onClick={(e) => !loading && !attributes.disabled && attributes?.onClick?.(e)}
       {...attributes}
+      className={twMerge(
+        classNames(
+          'flex-center text-white bg-primary hover:bg-primary font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none',
+          { 'pointer-events-none': attributes.disabled },
+          className
+        )
+      )}
     >
       <>
         {loading ? (
@@ -36,7 +46,7 @@ export const Button = ({
           <span className="mr-[8px]">{icon}</span>
         ) : null}
 
-        {title ? <p className="text-base">{title}</p> : null}
+        {title ? <p className={twMerge(classNames('text-base'), textClassName)}>{title}</p> : null}
       </>
     </button>
   )

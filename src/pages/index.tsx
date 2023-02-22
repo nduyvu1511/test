@@ -1,14 +1,14 @@
 import { Main } from '@/templates'
 
-const Index = () => {
+const HomePage = () => {
   return (
     <Main
       title="Next.js Boilerplate Presentation"
       description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
     >
-      <p>Home page</p>
+      <div className="container p-10"></div>
     </Main>
   )
 }
 
-export default Index
+export default HomePage
