@@ -29,15 +29,12 @@ export type ModalProps = {
 
 export const Modal = ({
   children,
-  headerTitle,
   visible,
   allowOverlayclose = true,
   className,
   modalClassName,
   animationType = 'slideDown',
   overlayclassName,
-  header,
-  headerClassName,
   footer,
   onClose,
 }: ModalProps) => {
