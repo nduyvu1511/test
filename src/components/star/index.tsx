@@ -8,23 +8,6 @@ import { StarIcon } from './icon'
  */
 const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0
 
-function calculateCurrentPosition(totalIcons: number, positionX: number, width: number) {
-  const iconWidth = width / totalIcons
-  let currentValue = totalIcons
-
-  for (let i = 0; i < totalIcons; i += 1) {
-    // if position less then quarter icon
-    if (positionX <= iconWidth * i + iconWidth / 4) {
-      // if there is no value return 0
-      if (i === 0 && positionX < iconWidth / 2) currentValue = 0
-      else currentValue = i
-      break
-    }
-  }
-
-  return currentValue
-}
-
 type State = {
   defaultValue: number | null
   hoverValue: number | null
