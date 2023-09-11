@@ -33,7 +33,7 @@ export const Button = ({
       {...attributes}
       className={twMerge(
         classNames(
-          'flex-center text-white bg-primary hover:bg-primary font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none',
+          'flex-center text-white bg-primary hover:bg-primary font-semibold rounded-lg focus:outline-none',
           { 'pointer-events-none': attributes.disabled },
           className
         )

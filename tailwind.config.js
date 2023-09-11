@@ -14,6 +14,10 @@ module.exports = {
       '5xl': '3rem',
       '6xl': '4rem',
     },
+    spacing: {
+      header: 100,
+      footer: 100,
+    },
     extend: {
       gridTemplateColumns: {
         'left-200': '200px 1fr',
@@ -56,11 +60,13 @@ module.exports = {
       black50: 'rgba(0, 0, 0, 0.5)',
       black40: 'rgba(0, 0, 0, 0.4)',
       black10: 'rgba(0, 0, 0, 0.1)',
-      primary: '#2E41B6',
+      primary: '#4D46FA',
+      orange: '#F06336',
+      bg: '#F4F2F9',
       'primary-opacity': '#DAE2FD',
       'bg-primary': 'rgb(46, 76, 183, 0.2)',
       'white-color': '#FFFFFF',
-      'text-color': '#4E4E6A',
+      'text-color': '#000000',
       'gray-color-1': '#F0F0F0',
       'gray-10': '#f3f3f3',
       gray20: '#BFBFBF',

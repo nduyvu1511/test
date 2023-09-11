@@ -9,6 +9,16 @@ class MyDocument extends Document {
     return (
       <Html lang={AppConfig.locale}>
         <Head />
+        <link
+          rel="preload"
+          href="/fonts/Fontspring-DEMO-biennale-medium"
+          as="font"
+          type="font/woff"
+          crossOrigin=""
+        />
+
+        <link rel="shortcut icon" href="/logo.png" />
+
         <body>
           <Main />
           <NextScript />

@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ReactNode } from 'react'
-import { IoCloseOutline } from 'react-icons/io5'
+import { ReactNode, useEffect } from 'react'
 import { twMerge } from 'tailwind-merge'
 import ReactPortal from './portal'
 import { useModalTransition } from './useModalTransition'
@@ -48,27 +47,27 @@ export const Modal = ({
     <ReactPortal wrapperId="react-portal-modal-container">
       <AnimatePresence>
         {visible && (
-          <div className={twMerge(classNames('fixed inset-0 flex-center items-end', className))}>
+          <div
+            className={twMerge(
+              classNames(
+                'fixed top-[0px] right-[0px] left-[0px] bottom-[0px] flex-center items-end z-[1000]',
+                className
+              )
+            )}
+          >
+            <ModalChildren />
             <motion.div
               initial="hidden"
               animate="visible"
               exit="hidden"
               variants={variants}
               className={twMerge(
-                classNames('z-10 rounded-[5px] bg-white flex flex-col w-[400px] h-[400px]', modalClassName)
+                classNames(
+                  'z-10 rounded-[5px] bg-white flex flex-col w-[400px] h-[400px]',
+                  modalClassName
+                )
               )}
             >
-              {header || (
-                <div
-                  className={twMerge(classNames('h-[56px] flex items-center p-4', headerClassName))}
-                >
-                  <p className="text-lg line-clamp-1 flex-1">{headerTitle}</p>
-                  <button className="p-[4px]" onClick={onClose}>
-                    <IoCloseOutline className="text-lg" />
-                  </button>
-                </div>
-              )}
-
               <div className="flex-1 overflow-y-auto">{children}</div>
 
               {footer || null}
@@ -76,7 +75,12 @@ export const Modal = ({
 
             {/* Overlay */}
             <motion.div
-              className={twMerge(classNames('bg-black50 absolute inset-0', overlayclassName))}
+              className={twMerge(
+                classNames(
+                  'bg-black-40 absolute top-[0px] right-[0px] left-[0px] bottom-[0px]',
+                  overlayclassName
+                )
+              )}
               initial="hidden"
               animate="visible"
               exit="hidden"
@@ -88,4 +92,14 @@ export const Modal = ({
       </AnimatePresence>
     </ReactPortal>
   )
+}
+
+const ModalChildren = () => {
+  useEffect(() => {
+    document.documentElement.style.overflow = 'hidden'
+    return () => {
+      document.documentElement.style.overflow = 'auto'
+    }
+  })
+  return null
 }
