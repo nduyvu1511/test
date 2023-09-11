@@ -130,23 +130,20 @@ export function Star({
   React.useEffect(() => dispatch({ type: 'MouseClick', payload: ratingValue }), [ratingValue])
 
   const onPointerMove = (event: React.PointerEvent<HTMLSpanElement>) => {
-    const { clientX, currentTarget } = event
-    // get main span element position and width
-    const { left, right, width } = currentTarget.children[0]?.getBoundingClientRect()
-
-    // set for RTL
-    const positionX = rtl ? right - clientX : clientX - left
-
-    // Get current pointer position while moves over the icons
-    const currentValue = calculateCurrentPosition(totalIcons, positionX, width)
-
-    // set the value to state
-    if (currentValue > 0 && hoverValue !== currentValue) {
-      dispatch({
-        type: 'PointerMove',
-        payload: (currentValue * 100) / totalIcons,
-      })
-    }
+    // const { clientX, currentTarget } = event
+    // // get main span element position and width
+    // const { left, right, width } = currentTarget.children[0]?.getBoundingClientRect()
+    // // set for RTL
+    // const positionX = rtl ? right - clientX : clientX - left
+    // // Get current pointer position while moves over the icons
+    // const currentValue = calculateCurrentPosition(totalIcons, positionX, width)
+    // // set the value to state
+    // if (currentValue > 0 && hoverValue !== currentValue) {
+    //   dispatch({
+    //     type: 'PointerMove',
+    //     payload: (currentValue * 100) / totalIcons,
+    //   })
+    // }
   }
 
   /**
