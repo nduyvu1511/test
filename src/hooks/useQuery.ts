@@ -11,7 +11,7 @@ import type {
   QueryListPaginateFunction,
   UseQueryListRes,
 } from '@/types'
-import { AxiosPromise, AxiosResponse } from 'axios'
+import { AxiosPromise } from 'axios'
 import { PublicConfiguration } from 'swr/_internal'
 
 // KDL khi khởi tạo custom hook này: sẽ có 2 types cần truyền vào: Res là KDL của data, Req là KDL của params
