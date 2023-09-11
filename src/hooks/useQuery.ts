@@ -45,7 +45,7 @@ export const useQueryList = <Res, Req extends QueryList = any>({
     ...initialParams,
     limit,
     offset: 0,
-  })
+  } as any)
 
   async function fetcherHandler(): Promise<Res[]> {
     try {
@@ -56,7 +56,7 @@ export const useQueryList = <Res, Req extends QueryList = any>({
     }
   }
 
-  const getDataResponse = <Res>(res: AxiosResponse<HTTPResponse<ListRes<Res>>>): Res[] => {
+  const getDataResponse = <Res>(res: any): Res[] => {
     setTotal(res?.data?.result?.data?.total_product)
     return res?.data?.result?.data?.products || []
   }
@@ -66,7 +66,7 @@ export const useQueryList = <Res, Req extends QueryList = any>({
     setOffset(0)
     setValidating(false)
     setIsLoadingMore(false)
-    setParams(initialParams || { limit, offset: 0 })
+    setParams(initialParams || ({ limit, offset: 0 } as any))
   }
 
   const filter = async (_params: QueryListFunction<Res, Req>) => {
