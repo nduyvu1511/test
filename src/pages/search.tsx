@@ -1,14 +1,24 @@
-import { BookingFilter, BookingHeader, Header } from '@/components'
+import { BookingFilter, BookingHeader, BookingList, BookingSummary, Header } from '@/components'
 
 const SearchPage = () => {
   return (
-    <section className="bg">
-      <div className="bg-primary">
-        <Header />
+    <section className="bg-bg">
+      <Header />
+      <div className="mt-header">
+        <BookingHeader />
       </div>
-      <BookingHeader />
-      <div className="container">
-        <BookingFilter />
+      <div className="container mb-[5px] mt-[15px]">
+        <div className="grid grid-cols-right-270 gap-[10px]">
+          <div className="">
+            <div className="mb-[5px]">
+              <BookingFilter />
+            </div>
+            <BookingList />
+          </div>
+          <div className="">
+            <BookingSummary />
+          </div>
+        </div>
       </div>
     </section>
   )

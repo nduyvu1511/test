@@ -1,5 +1,5 @@
 import { closeIcon, logoIcon, menuIcon, usaIcon, vietnamIcon } from '@/assets'
-import { useModal } from '@/hooks'
+import { useModal, useScrollTop } from '@/hooks'
 import classNames from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,9 +12,15 @@ type HeaderProps = {
 
 export const Header = ({ className }: HeaderProps) => {
   const { closeModal, openModal, visible } = useModal()
+  const height = useScrollTop()
 
   return (
-    <div className={classNames('absolute top-[0px] right-[0px] left-[0px] z-[100] h-header')}>
+    <div
+      className={classNames(
+        'absolute top-[0px] right-[0px] left-[0px] z-[100] h-header',
+        height >= 80 && 'sticky bg-white'
+      )}
+    >
       <div className={twMerge(classNames('container h-header items-center', className))}>
         <div className="h-full flex items-center justify-between">
           <div className="flex items-center">
@@ -51,9 +57,9 @@ export const Header = ({ className }: HeaderProps) => {
       <Modal
         visible={visible}
         onClose={closeModal}
-        animationType="slideFromLeft"
+        animationType="slideFromRight"
         headerClassName="hidden"
-        modalClassName="h-full w-full max-w-[350px] fixed right-[0px] rounded-[0px]"
+        modalClassName="h-full w-full max-w-[350px] fixed left-[0px] rounded-[0px]"
       >
         <div className="py-[12px] px-[12px] flex justify-end">
           <button onClick={closeModal}>

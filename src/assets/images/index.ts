@@ -16,5 +16,8 @@ export const filterIcon = require('./filter.svg')
 export const closeIcon = require('./close.svg')
 export const instagramIcon = require('./instagram.svg')
 export const searchIcon = require('./search.svg')
+export const bambooIcon = require('./bamboo.svg')
+export const cutleryIcon = require('./cutlery.svg')
+export const suitcaseIcon = require('./suitcase.svg')
 export const imageBlur =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+F9PQAI8wNPvd7POQAAAABJRU5ErkJggg=='

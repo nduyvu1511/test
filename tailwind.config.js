@@ -22,6 +22,7 @@ module.exports = {
       gridTemplateColumns: {
         'left-200': '200px 1fr',
         'right-200': '1fr 200px',
+        'right-270': '1fr 270px',
       },
       colors: {
         gray: {

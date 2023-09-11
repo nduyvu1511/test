@@ -19,7 +19,7 @@ class MyDocument extends Document {
 
         <link rel="shortcut icon" href="/logo.png" />
 
-        <body>
+        <body className="min-h-screen bg-bg">
           <Main />
           <NextScript />
         </body>
